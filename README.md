@@ -204,7 +204,7 @@ public class PolicyHandler{
   
 - 원격 주문 (SimpleOrder 동작 후 결과)
 
-![증빙1]
+![DDD의 적용](https://user-images.githubusercontent.com/19971917/131080665-f7e3e281-8c4e-40cb-af50-48605369e0e4.png)
 
 # GateWay 적용
 API GateWay를 통하여 마이크로 서비스들의 집입점을 통일할 수 있다.

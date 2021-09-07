@@ -502,14 +502,14 @@ kubectl autoscale deploy store --min=1 --max=10 --cpu-percent=15 -n tutorial
 - siege를 활용해서 워크로드를 2분간 걸어준다. (Cloud 내 siege pod에서 부하줄 것)
 ```
 kubectl exec -it pod/siege -c siege -n tutorial -- /bin/bash
-siege -c100 -t120S -r10 -v --content-type "application/json" 'http://10.0.14.180:8080/stores POST {"orderId": 111, "userId": "user10", "menuId": "menu10", "qty":10}'
+siege -c100 -t120S -r10 -v --content-type "application/json" 'http://20.196.248.6:8080/payments POST {"userId": "user10", "menuId": "menu10", "qty":10}'
 ```
-![autoscale(hpa) 실행 및 부하발생]
+
 - 오토스케일 모니터링을 걸어 스케일 아웃이 자동으로 진행됨을 확인한다.
 ```
 kubectl get all -n tutorial
 ```
-![autoscale(hpa)결과]
+![siege](https://user-images.githubusercontent.com/19971917/132308639-b7b2c716-dee2-4740-9703-2f6caf64b8b1.png)
 
 # 서킷 브레이킹
 

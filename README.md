@@ -405,7 +405,7 @@ az acr build --registry user19acr --image user19acr.azurecr/simpleorder:v1 .
 
 
 - user19/simpleorder/simpleorder.yml 파일 
-
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -434,7 +434,7 @@ spec:
               configMapKeyRef:
                 name: cm-simpleorder
                 key: configurl
-	  
+```	  
 - deploy 완료
 
 ![전체 MSA]

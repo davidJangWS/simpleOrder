@@ -267,11 +267,11 @@ Materialized View 를 구현하여, 타 마이크로서비스의 데이터 원�
 
 - 주문(ordered) 실행 후 SimpleOrderHomes 화면
 
-![증빙2]
+![cqrs1](https://user-images.githubusercontent.com/19971917/132302361-1fe8467e-e53e-4f05-ab51-fbdefac236ac.png)
 
 - 주문(OrderCancelled) 취소 후 SimpleOrderHomes 화면
 
-![증빙3]
+![cqrs2](https://user-images.githubusercontent.com/19971917/132302440-5c879969-b5dc-4c2b-8a9f-0d3a0f77739e.png)
 
 위와 같이 주문을 하게되면 SimpleOrder -> Payment -> Store -> SimpleOrder 로 주문이 Assigend 되고
 

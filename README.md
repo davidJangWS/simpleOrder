@@ -473,15 +473,9 @@ spec:
 
 - Deployment.yml 에 ConfigMap 적용
 
-![image]
+![configmap](https://user-images.githubusercontent.com/19971917/132306452-0ac77ad4-fc3c-449e-b511-db1938c736ef.png)
 
-- ConfigMap 생성
 
-```
-kubectl create configmap apiurl --from-literal=url=http://10.0.92.205:8080 -n tutorial
-```
-
-   ![image]
 
 # 오토스케일 아웃
 

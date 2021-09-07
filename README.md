@@ -7,6 +7,7 @@
 4. 매장에서 주문을 할당해 제조한다.
 5. 고객이 주문을 취소할 수 있다.
 6. 고객이 중간중간 주문상태를 조회한다.
+7. 주문이 완료되면 고객에게 알림을 발송한다.
 
 ### 비기능적 요구사항
 1. 트랜잭션
@@ -27,7 +28,7 @@
 
 
 # 구현
-분석/설계 단계에서 도출된 헥사고날 아키텍처에 따라, 구현한 각 서비스를 로컬에서 실행하는 방법은 아래와 같다 (각자의 포트넘버는 8081 ~ 8084, 8088 이다)
+분석/설계 단계에서 도출된 헥사고날 아키텍처에 따라, 구현한 각 서비스를 로컬에서 실행하는 방법은 아래와 같다 (각자의 포트넘버는 8081 ~ 8085, 8088 이다)
 ```
 cd SimpleOrder
 mvn spring-boot:run  
@@ -40,6 +41,9 @@ mvn spring-boot:run
 
 cd Store
 mvn spring-boot:run  
+
+cd Notification
+mvn spring-boot:run
 
 cd gateway
 mvn spring-boot:run  
@@ -67,7 +71,7 @@ import java.util.List;
 @Table(name="SimpleOrder_table")
 public class SimpleOrder {
 
-    @Id
+   @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String userId;
@@ -84,7 +88,8 @@ public class SimpleOrder {
         //Following code causes dependency to external APIs
         // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
 
-        Payment payment = new Payment();
+        //Payment payment = new Payment();
+        fantastic4.external.Payment payment = new fantastic4.external.Payment();
         payment.setOrderId(this.getId());
         payment.setMenuId(this.menuId);
         payment.setQty(this.getQty());
@@ -108,46 +113,6 @@ public class SimpleOrder {
         OrderCancelled orderCancelled = new OrderCancelled();
         BeanUtils.copyProperties(this, orderCancelled);
         orderCancelled.publishAfterCommit();
-
-
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-    public String getMenuId() {
-        return menuId;
-    }
-
-    public void setMenuId(String menuId) {
-        this.menuId = menuId;
-    }
-    public Integer getQty() {
-        return qty;
-    }
-
-    public void setQty(Integer qty) {
-        this.qty = qty;
-    }
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
     
 }
 ```
@@ -237,6 +202,10 @@ spring:
           uri: http://localhost:8084
           predicates:
             - Path= /simpleOrderHomes/**
+	- id: Notification
+          uri: http://localhost:8085
+          predicates:
+            - Path=/notifiations/**
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -272,6 +241,10 @@ spring:
           uri: http://SimpleOrderHome:8080
           predicates:
             - Path= /simpleOrderHomes/**
+        - id: Notification
+          uri: http://Notification:8080
+          predicates:
+            - Path=/notifications/**
       globalcors:
         corsConfigurations:
           '[/**]':

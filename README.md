@@ -287,11 +287,11 @@ Store 서비스의 DB와 SimpleOrder의 DB를 다른 DB를 사용하여 폴리�
 
 **Store의 pom.xml DB 설정 코드**
 
-![증빙5]
+![hsql](https://user-images.githubusercontent.com/19971917/132302936-baa321b3-c404-47bb-9782-e4a1fa413857.png)
 
 **SimpleOrder의 pom.xml DB 설정 코드**
 
-![증빙4]
+![h2](https://user-images.githubusercontent.com/19971917/132302981-e8af08cf-363d-46c6-acae-10d628482e89.png)
 
 # 동기식 호출 과 Fallback 처리
 

@@ -340,7 +340,7 @@ git clone https://github.com/hyeonwoos/simpleOrder.git
 ```
 - Build 하기
 ```
-cd /team04
+cd /user19
 cd gateway
 mvn package
 
@@ -357,6 +357,10 @@ cd store
 mvn package
 
 cd ..
+cd notification
+mvn package
+
+cd ..
 cd simpleorderhome
 mvn package
 ```
@@ -364,53 +368,49 @@ mvn package
 - Docker Image Push/deploy/서비스생성
 ```
 cd gateway
-az acr build --registry team04 --image user12.azurecr/gateway:v1 .
-kubectl create ns tutorial
+az acr build --registry user19acr --image user19acr.azurecr/gateway:v1 .
+kubectl create ns tu
 
-kubectl create deploy gateway --image=user12.azurecr/gateway:v1 -n tutorial
-kubectl expose deploy gateway --type=ClusterIP --port=8080 -n tutorial
+kubectl create deploy gateway --image=user19acr.azurecr/gateway:v1 -n tu
+kubectl expose deploy gateway --type=LoadBalancer --port=8080 -n tu
 
 cd ..
 cd payment
-az acr build --registry team04 --image user12.azurecr/payment:v1 .
+az acr build --registry user19acr --image user19acr.azurecr/payment:v1 .
 
-kubectl create deploy payment --image=user12.azurecr/payment:v1 -n tutorial
-kubectl expose deploy payment --type=ClusterIP --port=8080 -n tutorial
+kubectl create deploy payment --image=user19acr.azurecr/payment:v1 -n tu
+kubectl expose deploy payment --type=ClusterIP --port=8080 -n tu
 
 cd ..
 cd store
-az acr build --registry team04 --image user12.azurecr/simpleorderhome:v1 .
+az acr build --registry user19acr --image user19acr.azurecr/simpleorderhome:v1 .
 
-kubectl create deploy store --image=user12.azurecr/simpleorderhome:v1 -n tutorial
-kubectl expose deploy store --type=ClusterIP --port=8080 -n tutorial
+kubectl create deploy store --image=user19acr.azurecr/simpleorderhome:v1 -n tu
+kubectl expose deploy store --type=ClusterIP --port=8080 -n tu
 
 cd ..
 cd simpleorderhome
-az acr build --registry team04 --image user12.azurecr/simpleorderhome:v1 .
+az acr build --registry user19acr --image user19acr.azurecr/simpleorderhome:v1 .
 
-kubectl create deploy simpleorderhome --image=user12.azurecr/simpleorderhome:v1 -n tutorial
-kubectl expose deploy simpleorderhome --type=ClusterIP --port=8080 -n tutorial
+kubectl create deploy simpleorderhome --image=user19acr.azurecr/simpleorderhome:v1 -n tu
+kubectl expose deploy simpleorderhome --type=ClusterIP --port=8080 -n tu
 ```
 
 - yml파일 이용한 deploy
 ```
 cd ..
 cd SimpleOrder
-az acr build --registry team04 --image user12.azurecr/simpleorder:v1 .
-```
-![증빙7]
-
-```
-kubectl expose deploy store --type=ClusterIP --port=8080 -n tutorial
+az acr build --registry user19acr --image user19acr.azurecr/simpleorder:v1 .
 ```
 
-- team04/SimpleOrder/kubernetes/deployment.yml 파일 
-```yml
+
+- user19/simpleorder/simpleorder.yml 파일 
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: simpleorder
-  namespace: tutorial
+  namespace: tu
   labels:
     app: simpleorder
 spec:
@@ -425,16 +425,16 @@ spec:
     spec:
       containers:
         - name: simpleorder
-          image: user12.azurecr.io/simpleorder:v1
+          image: user19acr.azurecr.io/simpleorder:v2
           ports:
             - containerPort: 8080
           env:
-            - name: configurl
-              valueFrom:
-                configMapKeyRef:
-                  name: apiurl
-                  key: url
-```	  
+          - name: configurl
+            valueFrom:
+              configMapKeyRef:
+                name: cm-simpleorder
+                key: configurl
+	  
 - deploy 완료
 
 ![전체 MSA]

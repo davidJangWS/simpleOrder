@@ -491,23 +491,20 @@ spec:
               cpu: 200m
 ```
 
-- 다시 expose 해준다.
-```
-kubectl expose deploy store --type=ClusterIP --port=8080 -n tutorial
-```
+
 - recipe 시스템에 replica를 자동으로 늘려줄 수 있도록 HPA를 설정한다. 설정은 CPU 사용량이 15%를 넘어서면 replica를 10개까지 늘려준다.
 ```
-kubectl autoscale deploy store --min=1 --max=10 --cpu-percent=15 -n tutorial
+kubectl autoscale deploy payment --min=1 --max=10 --cpu-percent=15 -n tu
 ```
 - siege를 활용해서 워크로드를 2분간 걸어준다. (Cloud 내 siege pod에서 부하줄 것)
 ```
-kubectl exec -it pod/siege -c siege -n tutorial -- /bin/bash
+kubectl exec -it pod/siege -c siege -n tu -- /bin/bash
 siege -c100 -t120S -r10 -v --content-type "application/json" 'http://20.196.248.6:8080/payments POST {"userId": "user10", "menuId": "menu10", "qty":10}'
 ```
 
 - 오토스케일 모니터링을 걸어 스케일 아웃이 자동으로 진행됨을 확인한다.
 ```
-kubectl get all -n tutorial
+kubectl get all -n tu
 ```
 ![siege](https://user-images.githubusercontent.com/19971917/132308639-b7b2c716-dee2-4740-9703-2f6caf64b8b1.png)
 

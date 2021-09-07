@@ -320,16 +320,15 @@ public interface PaymentService {
 **동작 확인**
 - 잠시 Payment 서비스 중시
 
-![증빙6]
+![error_pod](https://user-images.githubusercontent.com/19971917/132304415-dc0867c2-1745-48c3-b711-5e0ceec4d1a1.png)
 
 - 주문 요청시 에러 발생
 
-![증빙7]
+![error_payment](https://user-images.githubusercontent.com/19971917/132304468-c3b017a6-3e79-496b-adbb-1e861732bf1e.png)
 
 - Payment 서비스 재기동 후 정상동작 확인
 
-![증빙8]
-![증빙9]
+![error_정상](https://user-images.githubusercontent.com/19971917/132304530-7b17d027-3ab6-4078-acc9-3fbea841b6c0.png)
 
 # 운영
 

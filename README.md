@@ -437,7 +437,7 @@ spec:
 ```	  
 - deploy 완료
 
-![전체 MSA]
+![전체](https://user-images.githubusercontent.com/19971917/132306088-8365bf82-8471-426b-80cf-70aab5634bd0.png)
 
 # ConfigMap 
 - 시스템별로 변경 가능성이 있는 설정들을 ConfigMap을 사용하여 관리

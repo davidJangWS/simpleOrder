@@ -1,4 +1,4 @@
-# team04
+# davidJang
 # 서비스 시나리오
 ### 기능적 요구사항
 1. 고객이 메뉴를 선택하여 주문한다.
@@ -20,7 +20,7 @@
 
 # Event Storming 결과
 
-![EventStorming_V1](https://user-images.githubusercontent.com/19971917/130919916-353cbf6a-f9dc-4e96-ac37-fcbba4648fb1.png)
+![simpleorder](https://user-images.githubusercontent.com/19971917/132350259-5099afe4-9163-4d34-a417-8f8deb3f6873.png)
 
 # 헥사고날 아키텍처 다이어그램 도출
 

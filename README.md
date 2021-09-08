@@ -547,8 +547,7 @@ hystrix:
   
   동시 사용자 100명, 60초 동안 실시 
 ```
-siege -c100 -t60S -r10 -v --content-type "application/json" 'http://10.0.14.180:8080/simpleOrders 
-POST {"userId": "user10", "menuId": "menu10", "qty":10}'
+siege -c100 -t60S -r10 -v --content-type "application/json" 'http://20.196.248.6:8080/stores POST {"userId": "user10", "menuId": "menu10", "qty":10}'
 ```
 - 부하 발생하여 CB가 발동하여 요청 실패처리하였고, 밀린 부하가 다시 처리되면서 SimpleOrders를 받기 시작
 
@@ -557,12 +556,12 @@ POST {"userId": "user10", "menuId": "menu10", "qty":10}'
 # 무정지 배포
 
 - 무정지 배포가 되지 않는 readiness 옵션을 제거 설정
-team04/Store/kubernetes/deployment_n_readiness.yml
+simpleorder/store.yml
 ```yml
     spec:
       containers:
         - name: store
-          image: user12.azurecr.io/store:v1
+          image: user19acr.azurecr.io/store:v1
           ports:
             - containerPort: 8080
 #          readinessProbe:
@@ -584,16 +583,15 @@ team04/Store/kubernetes/deployment_n_readiness.yml
 ```
 - 무정지 배포가 되지 않아 Siege 결과 Availability가 100%가 되지 않음
 
-![무정지배포(readiness 제외) 실행]
-![무정지배포(readiness 제외) 실행결과]
+![readness_실패퍼센트](https://user-images.githubusercontent.com/19971917/132428207-3ad1b7d4-2b4d-4ed0-a933-1a42a1206b7a.png)
 
 - 무정지 배포를 위한 readiness 옵션 설정
-team04/Store/kubernetes/deployment.yml
+simpleorder/store.yml
 ```yml
     spec:
       containers:
         - name: store
-          image: user12.azurecr.io/store:v1
+          image: user19acr.azurecr.io/store:v1
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -616,8 +614,8 @@ team04/Store/kubernetes/deployment.yml
 
 - 무정지 배포를 위한 readiness 옵션 설정 후 적용 시 Siege 결과 Availability가 100% 확인
 
-![무정지배포(readiness 포함) 설정 및 실행]
-![무정지배포(readiness 포함) 설정 결과]
+![readness_성공](https://user-images.githubusercontent.com/19971917/132428262-121b8c07-cab3-4988-9033-3521269fadf1.png)
+
 
 # Self-healing (Liveness Probe)
 

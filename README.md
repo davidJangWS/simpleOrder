@@ -57,13 +57,13 @@ Entity Pattern 과 Repository Pattern 을 적용하기 위해 Spring Data REST �
 **SimpleOrder 서비스의 SimpleOrder.java**
 
 ```java 
-package team04;
+package fantastic4;
 
 import javax.persistence.*;
 import org.springframework.beans.BeanUtils;
 
-import team04.external.Payment;
-import team04.external.PaymentService;
+import fantastic4.external.Payment;
+import fantastic4.external.PaymentService;
 
 import java.util.List;
 
@@ -119,9 +119,9 @@ public class SimpleOrder {
 
 **SimpleOrder 서비스의 PolicyHandler.java**
 ```java
-package team04;
+package fantastic4;
 
-import team04.config.kafka.KafkaProcessor;
+import fantastic4.config.kafka.KafkaProcessor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -334,10 +334,6 @@ public interface PaymentService {
 
 # Deploy / Pipeline
 
-- git에서 소스 가져오기
-```
-git clone https://github.com/hyeonwoos/simpleOrder.git
-```
 - Build 하기
 ```
 cd /user19
@@ -481,7 +477,7 @@ spec:
 
 - 서킷 브레이커는 시스템을 안정되게 운영할 수 있게 해줬지만, 사용자의 요청이 급증하는 경우, 오토스케일 아웃이 필요하다.
 
->- 단, 부하가 제대로 걸리기 위해서, recipe 서비스의 리소스를 줄여서 재배포한다.(team04/Store/kubernetes/deployment.yml 수정)
+>- 단, 부하가 제대로 걸리기 위해서, recipe 서비스의 리소스를 줄여서 재배포한다.(payment.yml 수정)
 
 ```yaml
           resources:
@@ -620,7 +616,7 @@ simpleorder/store.yml
 # Self-healing (Liveness Probe)
 
 - Self-healing 확인을 위한 Liveness Probe 옵션 변경
-team04/Store/kubernetes/deployment_live.yml
+store.yml
 ```yml
           readinessProbe:
             httpGet:

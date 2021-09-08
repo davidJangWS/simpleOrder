@@ -636,9 +636,9 @@ store.yml
 
 - Store pod에 Liveness Probe 옵션 적용 확인
 
-![self-healing설정 결과]
+![liveness_pod설정](https://user-images.githubusercontent.com/19971917/132430531-0cba3cda-9669-4bea-a6cb-c6832eb11074.png)
 
 - Store pod에서 적용 시 retry발생 확인
 
-![self-healing설정 후 restart증적]
+![liveness_restart](https://user-images.githubusercontent.com/19971917/132430565-dbac0b11-1874-45a7-9735-378596bfbe2c.png)
 
